@@ -71,9 +71,36 @@ class ProtocoloTramitacaoController extends Controller
      */
     public function store(Request $request)
     {
-        $tramitacao_input = $request->all();
+        $this->validate($request, [
+          'funcionario_tramitacao_id' => 'required',
+          'setor_tramitacao_id' => 'required',
+          'protocolo_id' => 'required',
+        ],
+        [
+            'funcionario_tramitacao_id.required' => 'Escolha o funcionário para tramitação',
+            'setor_tramitacao_id.required' => 'Escolha o funcionário e o setor para tramitação',
+            'protocolo_id.required' => 'Erro no sistema, protocolo não selecionado para tramitação',
+        ]);
 
-        dd($tramitacao_input);
+
+        $input_tramitacao = $request->all();
+
+        // recebi o usuário logado no sistema
+        $user = Auth::user();
+
+
+        $input_tramitacao['user_id_origem'] = $user->id;
+        $input_tramitacao['setor_id_origem'] = $user->setor->id;
+        $input_tramitacao['user_id_destino'] = $input_tramitacao['funcionario_tramitacao_id'];
+        $input_tramitacao['setor_id_destino'] = $input_tramitacao['setor_tramitacao_id'];
+        $input_tramitacao['recebido'] = 'n';
+        $input_tramitacao['tramitado'] = 'n';
+
+        ProtocoloTramitacao::create($input_tramitacao); //salva
+
+        Session::flash('create_protocolotramitacao', 'Tramitação inserida com sucesso!');
+
+        return Redirect::route('protocolos.edit', $input_tramitacao['protocolo_id']);
     }
 
     /**

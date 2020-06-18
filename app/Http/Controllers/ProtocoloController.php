@@ -147,7 +147,9 @@ class ProtocoloController extends Controller
 
         $anexos = $protocolo->anexos()->orderBy('id', 'desc')->get();
 
-        return view('protocolos.edit', compact('protocolo', 'protocolotipos', 'anexos'));
+        $notas = $protocolo->notas()->orderBy('id', 'desc')->get();
+
+        return view('protocolos.edit', compact('protocolo', 'protocolotipos', 'anexos', 'notas'));
     }
 
     /**

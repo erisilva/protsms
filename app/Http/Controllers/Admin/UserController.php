@@ -357,5 +357,40 @@ class UserController extends Controller
 
         $this->pdf->Output('D', 'Funcionarios_' .  date("Y-m-d H:i:s") . '.pdf', true);
         exit;
-    }    
+    }
+
+    /**
+     * Função de autocompletar para ser usada pelo typehead
+     * todo usuário logado no sistema pode acessar essa consulta
+     *
+     * @param  
+     * @return json
+     */
+    public function autocomplete(Request $request)
+    {
+
+        $profissionais = DB::table('users');
+
+        // join
+        $profissionais = $profissionais->join('setors', 'setors.id', '=', 'users.setor_id');
+
+        // select
+        $profissionais = $profissionais->select(
+          'users.name as text', 
+          'users.id as value', 
+          'setors.descricao as setor',  
+          'users.setor_id as setor_id',
+          'users.matricula as matricula',
+          'users.email as email'
+        );
+        
+        //where
+        $profissionais = $profissionais->where("users.name","LIKE","%{$request->input('query')}%");
+
+        //get
+        $profissionais = $profissionais->get();
+
+
+        return response()->json($profissionais, 200, ['Content-type'=> 'application/json; charset=utf-8'], JSON_UNESCAPED_UNICODE);
+    }         
 }

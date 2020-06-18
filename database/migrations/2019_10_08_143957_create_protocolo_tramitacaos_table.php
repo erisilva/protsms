@@ -47,7 +47,7 @@ class CreateProtocoloTramitacaosTable extends Migration
             $table->foreign('user_id_origem')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('setor_id_origem')->references('id')->on('setors')->onDelete('cascade');
             $table->foreign('user_id_destino')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('setors_id_destino')->references('id')->on('setors')->onDelete('cascade');
+            $table->foreign('setor_id_destino')->references('id')->on('setors')->onDelete('cascade');
         });
     }
 

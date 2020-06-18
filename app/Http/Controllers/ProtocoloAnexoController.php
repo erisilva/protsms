@@ -35,7 +35,6 @@ class ProtocoloAnexoController extends Controller
 
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -50,11 +49,12 @@ class ProtocoloAnexoController extends Controller
 
         // validação
         $this->validate($request, [
-          'arquivo' => 'required|file|max:10240',
+          'arquivo' => 'required|file|mimes:pdf,doc,rtf,txt,jpg,jpeg,png,bmp,xls,xlsx,csv,xml|max:2000',
         ],
         [
             'arquivo.required' => 'Selecione o arquivo a ser anexado',
-            'arquivo.max' => 'O tamanho máximo do anexo deve ser 10Mb',
+            'arquivo.max' => 'O tamanho máximo do anexo deve ser 2Mb',
+            'arquivo.mimes' => 'Somente são aceitos os seguintes formatos: pdf, doc, rtf, txt, jpg, jpeg, png, bmp, xls, xlsx, csv, xml',
         ]);
 
         // geração de uma string aleatória de tamanho configurável

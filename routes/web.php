@@ -31,6 +31,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 	Route::put('/users/password/update', 'ChangePasswordController@passwordUpdate')->name('users.passwordupdate');
     Route::get('/users/export/csv', 'UserController@exportcsv')->name('users.export.csv');
 	Route::get('/users/export/pdf', 'UserController@exportpdf')->name('users.export.pdf');
+    Route::get('/users/autocomplete', 'UserController@autocomplete')->name('users.autocomplete');
     Route::resource('/users', 'UserController');
 
 	/* Permissões */
@@ -66,6 +67,9 @@ Route::resource('/protocolos', 'ProtocoloController');
 
 /*ANEXOS DOS PROTOCOLOS*/
 Route::resource('/protocoloanexos', 'ProtocoloAnexoController')->only(['store', 'destroy',]);
+
+/*NOTAS DOS PROTOCOLOS*/
+Route::resource('/protocolonotas', 'ProtocoloNotaController')->only(['store', 'destroy',]);
 
 /* TRAMITAÇÃO DOS PROTOCOLOS */
 Route::resource('/protocolotramitacoes', 'ProtocoloTramitacaoController');

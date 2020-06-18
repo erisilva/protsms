@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProtocoloTramitacao extends Model
 {
     protected $fillable = [
-        'protocolo_id', 'user_id_origem', 'user_id_destino', 'mensagem', 'recebido_em', 'recebido', 'mensagemRecebido', 'tramitado_em', 'tramitado'
+        'protocolo_id', 'user_id_origem', 'setor_id_origem', 'user_id_destino', 'setor_id_destino', 'mensagem', 'recebido_em', 'recebido', 'mensagemRecebido', 'tramitado_em', 'tramitado'
     ];
 
     protected $dates = ['created_at', 'recebido_em', 'tramitado_em'];

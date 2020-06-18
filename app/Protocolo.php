@@ -44,4 +44,9 @@ class Protocolo extends Model
     {
         return $this->morphMany('App\Anexo', 'anexoable');
     }
+
+    public function notas()
+    {
+        return $this->morphMany('App\Nota', 'notaable');
+    }
 }
